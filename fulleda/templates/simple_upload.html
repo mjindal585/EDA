@@ -1,0 +1,85 @@
+<html>
+    <head><title>EDA</title>
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    
+
+    
+    </head>
+    <body>
+            {% if messages %}
+            {% for message in messages %}
+             {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+    
+            {% endfor %}
+    
+        {% endif %}
+        <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+        <h1 align='center'>Exploratory Data Analysis</h1>
+        <h3>Upload Dataset and Begin</h3>
+
+        </div></div>
+
+        <div class="container">
+        <h4>Choose File : </h4>
+        
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="customFile" name="myfile">
+                <label class="custom-file-label" for="customFile">.csv /.tsv /.xlsx</label>
+                <br>
+                <div align="center"><br><button type="submit" class="btn btn-primary" >
+                        <span class="spinner-grow spinner-grow-sm"></span>
+                        Upload
+                      </button>
+                      
+                </div>
+            </div>                 
+            
+        </form>
+        
+        {% if uploaded_file_url %}
+            <p>File uploaded : <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+            <p>Extension: <a href="{{ ext }}">{{ ext }}</a></p>
+            <p>Report Generated!</p>
+
+            {% if save_url %}
+                      
+                      <iframe src="{% url 'simple_frame' %}" height=auto width=auto></iframe>
+                      
+                      <br>
+                    
+                      <a href="{% url 'simple_frame' %}" download="{% url 'simple_frame' %}"><button type="submit" class="btn btn-primary" >
+                            Download
+                      </button></a>
+            {% endif %}
+        {% endif %}<br><br>
+<div class='container' align='center'>
+        <div class="spinner-grow text-muted"></div>
+        <div class="spinner-grow text-primary"></div>
+        <div class="spinner-grow text-success"></div>
+        <div class="spinner-grow text-info"></div>
+        <div class="spinner-grow text-warning"></div>
+        <div class="spinner-grow text-danger"></div>
+        <div class="spinner-grow text-secondary"></div>
+        <div class="spinner-grow text-dark"></div>
+        <div class="spinner-grow text-light"></div>
+        
+        </div></div>
+        <script>
+            $(".custom-file-input").on("change", function() {
+              var fileName = $(this).val().split("\\").pop();
+              $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+            </script>
+    </body>
+</html>

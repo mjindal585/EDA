@@ -1,0 +1,17 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+            {% if messages %}
+            {% for message in messages %}
+             {% if message.tags %}  <script>if(confirm("{{ message }}")) document.location = '/simple_upload.html';
+                </script> {% endif %}
+    
+            {% endfor %}
+    
+        {% endif %}
+       
+    
+    </body>
+</html>
